@@ -10,3 +10,9 @@ export class CreateCustomerRequest {
   alamat: string;
   kota: string;
 }
+
+export class UpdateCustomerRequest {
+  nama?: string;
+  alamat?: string;
+  kota?: string;
+}
