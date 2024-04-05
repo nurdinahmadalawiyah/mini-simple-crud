@@ -2,13 +2,23 @@ import {Button, Grid, Tab, Tabs, Typography} from "@mui/material";
 import React, {useState} from "react";
 import {AddCircleOutlineRounded} from "@mui/icons-material";
 import CustomerManagement from "../components/customerManagement.jsx";
+import FormAddCustomer from "../components/formAddCustomer.jsx";
 
 const Dashboard = () => {
     const [valueTabs, setValueTabs] = useState(0);
+    const [openDialog, setOpenDialog] = useState(false);
 
     const handleChangeTabs = (event, newValue) => {
         setValueTabs(newValue);
     }
+
+    const handleOpenAddDialog = () => {
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
 
     return (
         <Grid
@@ -36,13 +46,18 @@ const Dashboard = () => {
                         variant='contained'
                         startIcon={<AddCircleOutlineRounded/>}
                         sx={{textTransform: "none"}}
-                        onClick={() => {
-                        }}
+                        onClick={() => handleOpenAddDialog()}
                     >
                         Add New Customer
                     </Button>
                 </Grid>
             </Grid>
+
+            <FormAddCustomer
+                open={openDialog}
+                handleClose={handleCloseDialog}
+                handleSubmit={(customerData) => console.log(customerData)}
+            />
         </Grid>
     )
 }

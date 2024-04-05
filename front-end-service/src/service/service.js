@@ -20,8 +20,7 @@ export const getCustomers = async (serviceId) => {
     const BASE_URL = getBaseUrl(serviceId);
 
     try {
-        const res = await axios.get(BASE_URL + BASE_ENDPOINT);
-        return res;
+        return await axios.get(BASE_URL + BASE_ENDPOINT);
     } catch (error) {
         console.log(error);
     }
@@ -31,8 +30,7 @@ export const updateCustomer = async (serviceId, customerId, bodyRequest) => {
     const BASE_URL = getBaseUrl(serviceId);
 
     try {
-        const res = await axios.put(BASE_URL + BASE_ENDPOINT + `/${customerId}`, bodyRequest);
-        return res;
+        return await axios.put(BASE_URL + BASE_ENDPOINT + `/${customerId}`, bodyRequest);
     } catch (error) {
         console.log(error);
     }
@@ -42,8 +40,7 @@ export const deleteCustomer = async (serviceId, customerId) => {
     const BASE_URL = getBaseUrl(serviceId);
 
     try {
-        const res = await axios.delete(BASE_URL + BASE_ENDPOINT + `/${customerId}`);
-        return res;
+        return await axios.delete(BASE_URL + BASE_ENDPOINT + `/${customerId}`);
     } catch (error) {
         console.log(error);
     }
