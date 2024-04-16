@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 
-function DialogConfirmation({ title, desc, openDialog, setOpenDialog, handleDeleteCustomer, currentCustomerId  }) {
+function DialogConfirmation({title, desc, openDialog, setOpenDialog, handleDeleteCustomer, currentCustomerId}) {
     const handleClose = () => {
         setOpenDialog(false);
     };

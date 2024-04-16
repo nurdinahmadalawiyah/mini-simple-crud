@@ -30,7 +30,7 @@ const Dashboard = () => {
         createCustomer(valueTabs, customerData)
             .then(() => {
                 setSnackbarSeverity('success');
-                setSnackbarMessage('Customer added successfully');
+                setSnackbarMessage('Customer added successfully with ' + (valueTabs === 0 ? 'Express Service' : 'Nest Service'));
                 setSnackbarOpen(true);
                 setOpenDialog(false);
                 setRefreshData(true);
@@ -53,8 +53,7 @@ const Dashboard = () => {
         setSnackbarOpen(true);
     };
 
-    return (
-        <Grid
+    return (<Grid
             container
             spacing={4}
             flexDirection="column"
@@ -72,7 +71,8 @@ const Dashboard = () => {
                     <Tab label={"NestJS"} sx={{textTransform: "none"}}/>
                 </Tabs>
 
-                <CustomerManagement serviceId={valueTabs} refreshData={refreshData} onRefreshData={handleRefreshData} onSnackbar={handleSnackbar} />
+                <CustomerManagement serviceId={valueTabs} refreshData={refreshData} onRefreshData={handleRefreshData}
+                                    onSnackbar={handleSnackbar}/>
 
                 <Grid item alignSelf={"flex-end"}>
                     <Button
@@ -98,8 +98,7 @@ const Dashboard = () => {
                 message={snackbarMessage}
                 handleClose={() => setSnackbarOpen(false)}
             />
-        </Grid>
-    )
+        </Grid>)
 }
 
 export default Dashboard;

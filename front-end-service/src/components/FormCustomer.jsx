@@ -16,7 +16,7 @@ const FormCustomer = ({open, handleClose, handleSubmit, initialValues}) => {
             <Formik
                 initialValues={{
                     nama: initialValues && initialValues.nama ? initialValues.nama : '',
-                    alamat: initialValues  && initialValues.alamat ? initialValues.alamat : '',
+                    alamat: initialValues && initialValues.alamat ? initialValues.alamat : '',
                     kota: initialValues && initialValues.kota ? initialValues.kota : '',
                 }}
                 validationSchema={validationSchema}
@@ -56,7 +56,8 @@ const FormCustomer = ({open, handleClose, handleSubmit, initialValues}) => {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose} color={"error"}>Cancel</Button>
-                            <Button onClick={submitForm} color="primary" disabled={isSubmitting}>{initialValues ? "Update" : "Add"}</Button>
+                            <Button onClick={submitForm} color="primary"
+                                    disabled={isSubmitting}>{initialValues ? "Update" : "Add"}</Button>
                         </DialogActions>
                     </Form>
                 )}

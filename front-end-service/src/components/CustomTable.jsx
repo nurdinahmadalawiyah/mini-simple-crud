@@ -7,16 +7,19 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function CustomTable({ header, rows }) {
+function CustomTable({header, rows}) {
     console.log('Header:', header);
     console.log('Rows:', rows);
     return (
-        <TableContainer component={Paper} style={{ display: 'flex', justifyContent: 'center' }}>
-            <Table sx={{ minWidth: 650 }} aria-label="custom table">
+        <TableContainer component={Paper} style={{display: 'flex', justifyContent: 'center'}}>
+            <Table sx={{minWidth: 650}} aria-label="custom table">
                 <TableHead>
                     <TableRow>
                         {header.map((column, index) => (
-                            <TableCell key={index} sx={{ backgroundColor: 'primary.main', color: 'primary.contrastText' }}>{column}</TableCell>
+                            <TableCell key={index} sx={{
+                                backgroundColor: 'primary.main',
+                                color: 'primary.contrastText'
+                            }}>{column}</TableCell>
                         ))}
                     </TableRow>
                 </TableHead>

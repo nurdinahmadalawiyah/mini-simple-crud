@@ -10,7 +10,7 @@ import FormCustomer from "./FormCustomer.jsx";
 
 const header = ['No', 'Name', 'Address', 'City', 'Actions'];
 
-const CustomerManagement = ({ serviceId, refreshData, onRefreshData, onSnackbar }) => {
+const CustomerManagement = ({serviceId, refreshData, onRefreshData, onSnackbar}) => {
     const [value, setValue] = React.useState([]);
     const [openEditDialog, setOpenEditDialog] = React.useState(false);
     const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
@@ -50,7 +50,7 @@ const CustomerManagement = ({ serviceId, refreshData, onRefreshData, onSnackbar 
             if (response.status === 200) {
                 handleGetAllCustomers();
                 setOpenDeleteDialog(false);
-                onSnackbar("Customer deleted successfully", "success");
+                onSnackbar("Customer deleted successfully with " + (serviceId === 0 ? 'Express Service' : 'Nest Service'), "success");
             }
         }).catch((e) => {
             console.log(e)
@@ -78,7 +78,7 @@ const CustomerManagement = ({ serviceId, refreshData, onRefreshData, onSnackbar 
             .then(() => {
                 handleGetAllCustomers();
                 handleCloseEditDialog();
-                onSnackbar("Customer updated successfully", "success");
+                onSnackbar("Customer updated successfully with " + (serviceId === 0 ? 'Express Service' : 'Nest Service'), "success");
             })
             .catch((e) => {
                 console.error('Failed to update customer', e);
