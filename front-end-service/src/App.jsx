@@ -1,4 +1,4 @@
-import Dashboard from "./views/dashboard.jsx";
+import Dashboard from "./views/Dashboard.jsx";
 import {Box, Container} from "@mui/material";
 
 function App() {

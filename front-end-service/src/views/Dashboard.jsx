@@ -1,8 +1,8 @@
 import {Button, Grid, Tab, Tabs, Typography} from "@mui/material";
 import React, {useState} from "react";
 import {AddCircleOutlineRounded} from "@mui/icons-material";
-import CustomerManagement from "../components/customerManagement.jsx";
-import FormAddCustomer from "../components/formAddCustomer.jsx";
+import CustomerManagement from "../components/CustomerManagement.jsx";
+import FormCustomer from "../components/FormCustomer.jsx";
 import {createCustomer} from "../service/service.js";
 import CustomSnackbar from "../components/CustomSnackbar.jsx";
 
@@ -86,7 +86,7 @@ const Dashboard = () => {
                 </Grid>
             </Grid>
 
-            <FormAddCustomer
+            <FormCustomer
                 open={openDialog}
                 handleClose={handleCloseDialog}
                 handleSubmit={handleAddCustomer}

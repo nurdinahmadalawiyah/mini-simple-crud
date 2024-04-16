@@ -1,12 +1,12 @@
-import TabPanel from "./tabPanel.jsx";
-import CustomTable from "./customTable.jsx";
+import TabPanel from "./TabPanel.jsx";
+import CustomTable from "./CustomTable.jsx";
 import React from "react";
 import {deleteCustomer, getCustomers, updateCustomer} from "../service/service.js";
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from "@mui/icons-material/Delete";
-import DialogConfirmation from "./dialogConfirmation.jsx";
-import FormAddCustomer from "./formAddCustomer.jsx";
+import DialogConfirmation from "./DialogConfirmation.jsx";
+import FormCustomer from "./FormCustomer.jsx";
 
 const header = ['No', 'Name', 'Address', 'City', 'Actions'];
 
@@ -115,7 +115,7 @@ const CustomerManagement = ({ serviceId, refreshData, onRefreshData, onSnackbar 
                     <CustomTable header={header} rows={transformedData}/>
                 </TabPanel>
             </div>
-            <FormAddCustomer
+            <FormCustomer
                 open={openEditDialog}
                 handleClose={handleCloseEditDialog}
                 handleSubmit={handleUpdateCustomer}

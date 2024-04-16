@@ -3,7 +3,7 @@ import {Dialog, DialogTitle, DialogContent, Button, TextField, DialogActions} fr
 import {Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 
-const FormAddCustomer = ({open, handleClose, handleSubmit, initialValues}) => {
+const FormCustomer = ({open, handleClose, handleSubmit, initialValues}) => {
     const validationSchema = Yup.object({
         nama: Yup.string().required('Name is required'),
         alamat: Yup.string().required('Address is requires'),
@@ -12,7 +12,7 @@ const FormAddCustomer = ({open, handleClose, handleSubmit, initialValues}) => {
 
     return (
         <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>{initialValues ? 'Edit Customer' : 'Add New Customer'}</DialogTitle>
+            <DialogTitle textAlign="center">{initialValues ? 'Edit Customer' : 'Add New Customer'}</DialogTitle>
             <Formik
                 initialValues={{
                     nama: initialValues && initialValues.nama ? initialValues.nama : '',
@@ -65,4 +65,4 @@ const FormAddCustomer = ({open, handleClose, handleSubmit, initialValues}) => {
     );
 };
 
-export default FormAddCustomer;
+export default FormCustomer;

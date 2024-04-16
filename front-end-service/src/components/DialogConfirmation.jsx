@@ -18,18 +18,18 @@ function DialogConfirmation({ title, desc, openDialog, setOpenDialog, handleDele
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogTitle textAlign={"center"}>
+            <DialogTitle textAlign="center">
                 {title}
             </DialogTitle>
             <DialogContent>
-                <DialogContentText textAlign={"center"}>
+                <DialogContentText textAlign="center">
                     {desc}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Box display="flex" justifyContent="center" width="100%">
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button color={"error"} onClick={() => confirmDelete()} autoFocus>
+                    <Button color="error" onClick={() => confirmDelete()} autoFocus>
                         Delete
                     </Button>
                 </Box>
