@@ -1,12 +1,16 @@
-import {Button, Grid, Tab, Tabs, Typography} from "@mui/material";
+import {Alert, Button, Grid, Snackbar, Tab, Tabs, Typography} from "@mui/material";
 import React, {useState} from "react";
 import {AddCircleOutlineRounded} from "@mui/icons-material";
 import CustomerManagement from "../components/customerManagement.jsx";
 import FormAddCustomer from "../components/formAddCustomer.jsx";
+import {createCustomer} from "../service/service.js";
 
 const Dashboard = () => {
     const [valueTabs, setValueTabs] = useState(0);
     const [openDialog, setOpenDialog] = useState(false);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
     const handleChangeTabs = (event, newValue) => {
         setValueTabs(newValue);
@@ -18,6 +22,28 @@ const Dashboard = () => {
 
     const handleCloseDialog = () => {
         setOpenDialog(false);
+    };
+
+    const handleAddCustomer = (customerData) => {
+        createCustomer(valueTabs, customerData)
+            .then(() => {
+                setSnackbarSeverity('success');
+                setSnackbarMessage('Customer added successfully');
+                setSnackbarOpen(true);
+                setOpenDialog(false);
+                // setTimeout(() => {
+                //     setAlert({
+                //         ...alert,
+                //         open: false
+                //     });
+                // }, 3000);
+            })
+            .catch(error => {
+                console.error('Failed to add customer', error);
+                setSnackbarSeverity('error');
+                setSnackbarMessage('Failed to add customer');
+                setSnackbarOpen(true);
+            });
     };
 
     return (
@@ -39,7 +65,7 @@ const Dashboard = () => {
                     <Tab label={"NestJS"} sx={{textTransform: "none"}}/>
                 </Tabs>
 
-                <CustomerManagement serviceId={valueTabs} />
+                <CustomerManagement serviceId={valueTabs}/>
 
                 <Grid item alignSelf={"flex-end"}>
                     <Button
@@ -56,8 +82,24 @@ const Dashboard = () => {
             <FormAddCustomer
                 open={openDialog}
                 handleClose={handleCloseDialog}
-                handleSubmit={(customerData) => console.log(customerData)}
+                handleSubmit={handleAddCustomer}
             />
+
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={3000}
+                onClose={() => setSnackbarOpen(false)}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+            <Alert
+                variant="filled"
+                severity={snackbarSeverity}
+                onClose={() => setSnackbarOpen(false)}
+                sx={{ width: '100%'}}
+            >
+                {snackbarMessage}
+            </Alert>
+            </Snackbar>
         </Grid>
     )
 }

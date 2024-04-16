@@ -2,14 +2,14 @@ import TabPanel from "./tabPanel.jsx";
 import CustomTable from "./customTable.jsx";
 import React from "react";
 import {deleteCustomer, getCustomers} from "../service/service.js";
-import {IconButton} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit.js";
-import DeleteIcon from "@mui/icons-material/Delete.js";
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from "@mui/icons-material/Delete";
 import DialogConfirmation from "./dialogConfirmation.jsx";
 
 const header = ['No', 'Name', 'Address', 'City', 'Actions'];
 
-const CustomerManagement = ({serviceId}) => {
+const CustomerManagement = ({ serviceId }) => {
     const [value, setValue] = React.useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
     const [currentCustomerId, setCurrentCustomerId] = React.useState(null);
@@ -41,13 +41,6 @@ const CustomerManagement = ({serviceId}) => {
         })
     }
 
-    const handleAddCustomer = (customerData) => {
-        createCustomer(valueTabs, customerData).then(() => {
-            console.log('Customer added successfully');
-            handleCloseDialog();
-        }).catch(error => console.error('Failed to add customer:', error));
-    };
-
     const handleDeleteCustomers = (customerId) => {
         deleteCustomer(serviceId, customerId).then((response) => {
             if (response.status === 200) {
@@ -63,14 +56,6 @@ const CustomerManagement = ({serviceId}) => {
     const handleOpenDialog = (customerId) => {
         setCurrentCustomerId(customerId);
         setOpenDialog(true);
-    };
-
-    const handleOpenAddDialog = () => {
-        setOpenDialog(true);
-    };
-
-    const handleCloseDialog = () => {
-        setOpenDialog(false);
     };
 
     React.useEffect(() => {
