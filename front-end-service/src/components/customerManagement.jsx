@@ -9,7 +9,7 @@ import DialogConfirmation from "./dialogConfirmation.jsx";
 
 const header = ['No', 'Name', 'Address', 'City', 'Actions'];
 
-const CustomerManagement = ({ serviceId }) => {
+const CustomerManagement = ({ serviceId, refreshData, onRefreshData}) => {
     const [value, setValue] = React.useState([]);
     const [openDialog, setOpenDialog] = React.useState(false);
     const [currentCustomerId, setCurrentCustomerId] = React.useState(null);
@@ -35,6 +35,7 @@ const CustomerManagement = ({ serviceId }) => {
         getCustomers(serviceId).then((response) => {
             if (response.status === 200) {
                 setValue(response.data)
+                onRefreshData();
             }
         }).catch((e) => {
             console.log(e)
@@ -57,6 +58,12 @@ const CustomerManagement = ({ serviceId }) => {
         setCurrentCustomerId(customerId);
         setOpenDialog(true);
     };
+
+    React.useEffect(() => {
+        if (refreshData) {
+            handleGetAllCustomers();
+        }
+    }, [refreshData]);
 
     React.useEffect(() => {
         handleGetAllCustomers();

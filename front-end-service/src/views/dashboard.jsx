@@ -1,9 +1,10 @@
-import {Alert, Button, Grid, Snackbar, Tab, Tabs, Typography} from "@mui/material";
+import {Button, Grid, Tab, Tabs, Typography} from "@mui/material";
 import React, {useState} from "react";
 import {AddCircleOutlineRounded} from "@mui/icons-material";
 import CustomerManagement from "../components/customerManagement.jsx";
 import FormAddCustomer from "../components/formAddCustomer.jsx";
 import {createCustomer} from "../service/service.js";
+import CustomSnackbar from "../components/CustomSnackbar.jsx";
 
 const Dashboard = () => {
     const [valueTabs, setValueTabs] = useState(0);
@@ -11,6 +12,7 @@ const Dashboard = () => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+    const [refreshData, setRefreshData] = useState(false);
 
     const handleChangeTabs = (event, newValue) => {
         setValueTabs(newValue);
@@ -31,12 +33,7 @@ const Dashboard = () => {
                 setSnackbarMessage('Customer added successfully');
                 setSnackbarOpen(true);
                 setOpenDialog(false);
-                // setTimeout(() => {
-                //     setAlert({
-                //         ...alert,
-                //         open: false
-                //     });
-                // }, 3000);
+                setRefreshData(true);
             })
             .catch(error => {
                 console.error('Failed to add customer', error);
@@ -46,11 +43,15 @@ const Dashboard = () => {
             });
     };
 
+    const handleRefreshData = () => {
+        setRefreshData(false);
+    };
+
     return (
         <Grid
             container
             spacing={4}
-            flexDirection={"column"}
+            flexDirection="column"
             justifyContent={"center"}
             alignItems={"center"}
         >
@@ -65,7 +66,7 @@ const Dashboard = () => {
                     <Tab label={"NestJS"} sx={{textTransform: "none"}}/>
                 </Tabs>
 
-                <CustomerManagement serviceId={valueTabs}/>
+                <CustomerManagement serviceId={valueTabs} refreshData={refreshData} onRefreshData={handleRefreshData} />
 
                 <Grid item alignSelf={"flex-end"}>
                     <Button
@@ -85,21 +86,12 @@ const Dashboard = () => {
                 handleSubmit={handleAddCustomer}
             />
 
-            <Snackbar
+            <CustomSnackbar
                 open={snackbarOpen}
-                autoHideDuration={3000}
-                onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            >
-            <Alert
-                variant="filled"
                 severity={snackbarSeverity}
-                onClose={() => setSnackbarOpen(false)}
-                sx={{ width: '100%'}}
-            >
-                {snackbarMessage}
-            </Alert>
-            </Snackbar>
+                message={snackbarMessage}
+                handleClose={() => setSnackbarOpen(false)}
+            />
         </Grid>
     )
 }
