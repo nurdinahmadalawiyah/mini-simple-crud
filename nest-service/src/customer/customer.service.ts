@@ -20,7 +20,7 @@ export class CustomerService {
       this.validationService.validate(CustomerValidation.CREATE, request);
 
     const customer = await this.prismaService.customer.create({
-      data: { ...createRequest },
+      data: { ...createRequest, source: 'nest' },
     });
 
     return {
@@ -32,7 +32,11 @@ export class CustomerService {
   }
 
   async get(): Promise<CustomerResponse[]> {
-    const customer = await this.prismaService.customer.findMany();
+    const customer = await this.prismaService.customer.findMany({
+      where: {
+        source: 'nest',
+      },
+    });
     return customer.map((customer) => ({
       no: customer.no,
       nama: customer.nama,
@@ -58,7 +62,7 @@ export class CustomerService {
 
     const updatedCustomer = await this.prismaService.customer.update({
       where: { no: customerId },
-      data: updateRequest,
+      data: { ...updateRequest, source: 'nest' },
     });
 
     return {
