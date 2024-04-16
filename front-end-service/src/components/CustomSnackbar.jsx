@@ -1,6 +1,7 @@
 import React from 'react';
 import { Snackbar, Alert } from '@mui/material';
 
+
 const CustomSnackbar = ({ open, severity, message, handleClose }) => {
     return (
         <Snackbar

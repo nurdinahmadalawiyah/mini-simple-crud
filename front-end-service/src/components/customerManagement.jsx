@@ -1,18 +1,21 @@
 import TabPanel from "./tabPanel.jsx";
 import CustomTable from "./customTable.jsx";
 import React from "react";
-import {deleteCustomer, getCustomers} from "../service/service.js";
+import {deleteCustomer, getCustomers, updateCustomer} from "../service/service.js";
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from "@mui/icons-material/Delete";
 import DialogConfirmation from "./dialogConfirmation.jsx";
+import FormAddCustomer from "./formAddCustomer.jsx";
 
 const header = ['No', 'Name', 'Address', 'City', 'Actions'];
 
-const CustomerManagement = ({ serviceId, refreshData, onRefreshData}) => {
+const CustomerManagement = ({ serviceId, refreshData, onRefreshData, onSnackbar }) => {
     const [value, setValue] = React.useState([]);
-    const [openDialog, setOpenDialog] = React.useState(false);
+    const [openEditDialog, setOpenEditDialog] = React.useState(false);
+    const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
     const [currentCustomerId, setCurrentCustomerId] = React.useState(null);
+    const [selectedCustomer, setSelectedCustomer] = React.useState(null);
 
     const transformedData = value.map(item => ({
         "No": item.no,
@@ -21,10 +24,10 @@ const CustomerManagement = ({ serviceId, refreshData, onRefreshData}) => {
         "City": item.kota,
         "Actions": (
             <div>
-                <IconButton>
+                <IconButton onClick={() => handleEditCustomer(item)}>
                     <EditIcon color="warning"/>
                 </IconButton>
-                <IconButton onClick={() => handleOpenDialog(item.no)}>
+                <IconButton onClick={() => handleOpenDeleteDialog(item.no)}>
                     <DeleteIcon color="error"/>
                 </IconButton>
             </div>
@@ -46,18 +49,43 @@ const CustomerManagement = ({ serviceId, refreshData, onRefreshData}) => {
         deleteCustomer(serviceId, customerId).then((response) => {
             if (response.status === 200) {
                 handleGetAllCustomers();
-                setOpenDialog(false);
+                setOpenDeleteDialog(false);
+                onSnackbar("Customer deleted successfully", "success");
             }
         }).catch((e) => {
             console.log(e)
-            setOpenDialog(false);
+            setOpenDeleteDialog(false);
+            onSnackbar("Failed to delete customer", "error");
         })
     }
 
-    const handleOpenDialog = (customerId) => {
+    const handleOpenDeleteDialog = (customerId) => {
         setCurrentCustomerId(customerId);
-        setOpenDialog(true);
+        setOpenDeleteDialog(true);
     };
+
+    const handleEditCustomer = (customer) => {
+        setSelectedCustomer(customer)
+        setOpenEditDialog(true);
+    }
+
+    const handleCloseEditDialog = () => {
+        setOpenEditDialog(false);
+    };
+
+    const handleUpdateCustomer = (updateData) => {
+        updateCustomer(serviceId, selectedCustomer.no, updateData)
+            .then(() => {
+                handleGetAllCustomers();
+                handleCloseEditDialog();
+                onSnackbar("Customer updated successfully", "success");
+            })
+            .catch((e) => {
+                console.error('Failed to update customer', e);
+                setOpenEditDialog(false);
+                onSnackbar("Failed to update customer", "error");
+            })
+    }
 
     React.useEffect(() => {
         if (refreshData) {
@@ -74,8 +102,8 @@ const CustomerManagement = ({ serviceId, refreshData, onRefreshData}) => {
             <DialogConfirmation
                 title={"Confirm Delete"}
                 desc={"Are you sure you want to delete this customer?"}
-                openDialog={openDialog}
-                setOpenDialog={setOpenDialog}
+                openDialog={openDeleteDialog}
+                setOpenDialog={setOpenDeleteDialog}
                 handleDeleteCustomer={handleDeleteCustomers}
                 currentCustomerId={currentCustomerId}
             />
@@ -87,6 +115,12 @@ const CustomerManagement = ({ serviceId, refreshData, onRefreshData}) => {
                     <CustomTable header={header} rows={transformedData}/>
                 </TabPanel>
             </div>
+            <FormAddCustomer
+                open={openEditDialog}
+                handleClose={handleCloseEditDialog}
+                handleSubmit={handleUpdateCustomer}
+                initialValues={selectedCustomer}
+            />
         </React.Fragment>
     )
 }

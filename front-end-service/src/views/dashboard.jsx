@@ -47,6 +47,12 @@ const Dashboard = () => {
         setRefreshData(false);
     };
 
+    const handleSnackbar = (message, severity) => {
+        setSnackbarMessage(message);
+        setSnackbarSeverity(severity);
+        setSnackbarOpen(true);
+    };
+
     return (
         <Grid
             container
@@ -66,7 +72,7 @@ const Dashboard = () => {
                     <Tab label={"NestJS"} sx={{textTransform: "none"}}/>
                 </Tabs>
 
-                <CustomerManagement serviceId={valueTabs} refreshData={refreshData} onRefreshData={handleRefreshData} />
+                <CustomerManagement serviceId={valueTabs} refreshData={refreshData} onRefreshData={handleRefreshData} onSnackbar={handleSnackbar} />
 
                 <Grid item alignSelf={"flex-end"}>
                     <Button

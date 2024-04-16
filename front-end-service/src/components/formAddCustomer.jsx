@@ -3,7 +3,7 @@ import {Dialog, DialogTitle, DialogContent, Button, TextField, DialogActions} fr
 import {Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 
-const FormAddCustomer = ({open, handleClose, handleSubmit}) => {
+const FormAddCustomer = ({open, handleClose, handleSubmit, initialValues}) => {
     const validationSchema = Yup.object({
         nama: Yup.string().required('Name is required'),
         alamat: Yup.string().required('Address is requires'),
@@ -12,12 +12,12 @@ const FormAddCustomer = ({open, handleClose, handleSubmit}) => {
 
     return (
         <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Add New Customer</DialogTitle>
+            <DialogTitle>{initialValues ? 'Edit Customer' : 'Add New Customer'}</DialogTitle>
             <Formik
                 initialValues={{
-                    nama: '',
-                    alamat: '',
-                    kota: '',
+                    nama: initialValues && initialValues.nama ? initialValues.nama : '',
+                    alamat: initialValues  && initialValues.alamat ? initialValues.alamat : '',
+                    kota: initialValues && initialValues.kota ? initialValues.kota : '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => {
@@ -55,8 +55,8 @@ const FormAddCustomer = ({open, handleClose, handleSubmit}) => {
                                    required/>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={handleClose}>Cancel</Button>
-                            <Button onClick={submitForm} color="primary" disabled={isSubmitting}>Add</Button>
+                            <Button onClick={handleClose} color={"error"}>Cancel</Button>
+                            <Button onClick={submitForm} color="primary" disabled={isSubmitting}>{initialValues ? "Update" : "Add"}</Button>
                         </DialogActions>
                     </Form>
                 )}
