@@ -14,10 +14,11 @@ datasource db {
 }
 
 model Customer {
-  no     Int    @id @default(autoincrement())
-  nama   String @db.VarChar(50)
-  alamat String @db.Text
-  kota   String @db.VarChar(50)
+  no     Int     @id @default(autoincrement())
+  nama   String  @db.VarChar(50)
+  alamat String  @db.Text
+  kota   String  @db.VarChar(50)
+  source String? @db.VarChar(50)
 
   @@map("customers")
 }

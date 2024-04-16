@@ -1,4 +1,5 @@
 import { prismaClient } from "../prisma-client.js";
+import express from "express";
 
 export const createCustomer = async (data) => {
     const { nama, alamat, kota } = data;
@@ -6,13 +7,18 @@ export const createCustomer = async (data) => {
         data: {
             nama: nama,
             alamat: alamat,
-            kota: kota
+            kota: kota,
+            source: 'express'
         }
     });
 };
 
 export const getCustomers = async () => {
-    return prismaClient.customer.findMany();
+    return prismaClient.customer.findMany({
+        where: {
+            source: 'express'
+        }
+    });
 }
 
 export const updateCustomer = async (no, data) => {
@@ -24,7 +30,8 @@ export const updateCustomer = async (no, data) => {
         data: {
             nama: nama,
             alamat: alamat,
-            kota: kota
+            kota: kota,
+            source: 'express'
         }
     });
 }
