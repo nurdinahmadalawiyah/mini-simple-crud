@@ -8,7 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DialogConfirmation from "./DialogConfirmation.jsx";
 import FormCustomer from "./FormCustomer.jsx";
 
-const header = ['No', 'Name', 'Address', 'City', 'Actions'];
+const header = ['Customer Number', 'Name', 'Address', 'City', 'Actions'];
 
 const CustomerManagement = ({serviceId, refreshData, onRefreshData, onSnackbar}) => {
     const [value, setValue] = React.useState([]);
@@ -18,7 +18,7 @@ const CustomerManagement = ({serviceId, refreshData, onRefreshData, onSnackbar})
     const [selectedCustomer, setSelectedCustomer] = React.useState(null);
 
     const transformedData = value.map(item => ({
-        "No": item.no,
+        "Customer Number": item.no,
         "Name": item.nama,
         "Address": item.alamat,
         "City": item.kota,
