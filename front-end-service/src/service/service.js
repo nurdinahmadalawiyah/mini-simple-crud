@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_ENDPOINT = "/api/customer"
 
 const getBaseUrl = (serviceId) => {
-    return serviceId === 0 ? "http://localhost:3000" : "http://localhost:8000";
+    return serviceId === 0 ? import.meta.env.VITE_EXPRESS_BASE_URL : import.meta.env.VITE_NEST_BASE_URL;
 };
 
 export const createCustomer = async (serviceId, requestBody) => {
