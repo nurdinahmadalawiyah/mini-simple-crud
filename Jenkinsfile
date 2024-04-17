@@ -47,12 +47,14 @@ pipeline {
                 parallel (
                     "run express" : {
                         dir("express-service") {
+                            sh "npx prisma generate"
                             sh "npm install"
                             sh "npm run dev"
                         }
                     },
                     "run nest" : {
                         dir("nest-service") {
+                            sh "npx prisma generate"
                             sh "npm install"
                             sh "npm run start"
                         }
