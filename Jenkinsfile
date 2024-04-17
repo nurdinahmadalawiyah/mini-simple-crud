@@ -42,29 +42,29 @@ pipeline {
                 }
             }
         }
-    }
     stage("Build ExpressJS and NestJS Service") {
-        steps {
-            parallel (
-                "run express" : {
-                    dir("express-service") {
-                        sh "npm install"
-                        sh "npm run dev"
+            steps {
+                parallel (
+                    "run express" : {
+                        dir("express-service") {
+                            sh "npm install"
+                            sh "npm run dev"
+                        }
+                    },
+                    "run nest" : {
+                        dir("nest-service") {
+                            sh "npm install"
+                            sh "npm run start"
+                        }
+                    },
+                    "run react" : {
+                        dir("front-end-service") {
+                            sh "npm install"
+                            sh "npm run dev"
+                        }
                     }
-                },
-                "run nest" : {
-                    dir("nest-service") {
-                        sh "npm install"
-                        sh "npm run start"
-                    }
-                },
-                "run react" : {
-                    dir("front-end-service") {
-                        sh "npm install"
-                        sh "npm run dev"
-                    }
-                }
-            )
+                )
+            }
         }
     }
 }
