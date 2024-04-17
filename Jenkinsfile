@@ -14,7 +14,7 @@ pipeline {
                 dir('express-service') {
                     script {
                         withCredentials([file(credentialsId: "customer-express-env", variable: 'SECRET_FILE_EXPRESS')]) {
-                            writeFile file '.env', text: readFile(file: "${SECRET_FILE_EXPRESS}")
+                            writeFile file: '.env', text: readFile(file: "${SECRET_FILE_EXPRESS}")
                     }
                 }
             }
@@ -24,7 +24,7 @@ pipeline {
                 dir('nest-service') {
                     script {
                         withCredentials([file(credentialsId: "customer-nest-env", variable: 'SECRET_FILE_NEST')]) {
-                            writeFile file '.env', text: readFile(file: "${SECRET_FILE_NEST}")
+                            writeFile file: '.env', text: readFile(file: "${SECRET_FILE_NEST}")
                     }
                 }
             }
@@ -34,7 +34,7 @@ pipeline {
                 dir('front-end-service') {
                     script {
                         withCredentials([file(credentialsId: "customer-react-env", variable: 'SECRET_FILE_REACT')]) {
-                            writeFile file '.env', text: readFile(file: "${SECRET_FILE_REACT}")
+                            writeFile file: '.env', text: readFile(file: "${SECRET_FILE_REACT}")
                     }
                 }
             }
