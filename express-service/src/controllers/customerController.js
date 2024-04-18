@@ -1,7 +1,4 @@
 import {createCustomer, getCustomers, updateCustomer, deleteCustomer} from "../models/customerModel.js";
-import express from "express";
-
-const router = express.Router();
 
 export const createData = async (req, res) => {
     const { nama, alamat, kota } = req.body;

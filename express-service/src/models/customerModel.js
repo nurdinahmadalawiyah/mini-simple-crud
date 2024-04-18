@@ -1,5 +1,4 @@
 import { prismaClient } from "../prisma-client.js";
-import express from "express";
 
 export const createCustomer = async (data) => {
     const { nama, alamat, kota } = data;
